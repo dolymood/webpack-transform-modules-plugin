@@ -1,2 +1,2 @@
-# webpack-transform-modules-plugin
-webpack transform modules plugin
+# webpack-babel-options-plugin
+webpack babel options plugin
