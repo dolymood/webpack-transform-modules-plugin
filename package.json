@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "description": "webpack transform modules plugin",
   "main": "lib/index.js",
-  "directories": {
-    "test": "test"
-  },
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "test": "npm run test:unit && npm run test:integration && npm run codecov",
     "test:unit": "nyc mocha -t 1000 --recursive ./test/unit",
@@ -36,7 +36,7 @@
     "webpack": "^3.6.0"
   },
   "peerDependencies": {
-    "webpack": ">= 3 < 4",
+    "webpack": ">= 3",
     "babel-plugin-transform-modules": ">= 0.1.1"
   },
   "repository": {
