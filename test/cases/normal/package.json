@@ -1,0 +1,17 @@
+{
+  "name": "normal",
+  "version": "0.0.1",
+  "main": "index.js",
+  "dependencies": {
+    "a": "0.0.1",
+    "b": "0.0.1"
+  },
+  "transformModules": {
+    "a": {
+      "transform": "a/${member}"
+    },
+    "b": {
+      "transform": "b/${member}"
+    }
+  }
+}

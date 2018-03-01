@@ -1,0 +1,52 @@
+{
+  "name": "webpack-transform-modules-plugin",
+  "version": "0.1.0",
+  "description": "webpack transform modules plugin",
+  "main": "lib/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "npm run test:unit && npm run test:integration && npm run codecov",
+    "test:unit": "nyc mocha -t 1000 --recursive ./test/unit",
+    "test:integration": "mocha -t 5000 ./test/integration/*.js",
+    "codecov": "codecov",
+    "lint": "eslint lib/*"
+  },
+  "dependencies": {
+    "babel-plugin-transform-modules": "^0.1.1"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "chai": "^4.1.2",
+    "codecov": "^3.0.0",
+    "eslint": "^4.16.0",
+    "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "load-module-pkg": "^1.0.0",
+    "json-loader": "^0.5.7",
+    "mocha": "^5.0.0",
+    "nyc": "^11.4.1",
+    "webpack": "^3.6.0"
+  },
+  "peerDependencies": {
+    "webpack": ">= 3 < 4",
+    "babel-plugin-transform-modules": ">= 0.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dolymood/webpack-transform-modules-plugin.git"
+  },
+  "author": "dolymood",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dolymood/webpack-transform-modules-plugin/issues"
+  },
+  "homepage": "https://github.com/dolymood/webpack-transform-modules-plugin#readme"
+}
