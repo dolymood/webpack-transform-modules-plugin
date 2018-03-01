@@ -13,6 +13,15 @@
     "codecov": "codecov",
     "lint": "eslint lib/*"
   },
+  "nyc": {
+    "sourceMap": false,
+    "include": [
+      "lib"
+    ],
+    "reporter": [
+      "lcov"
+    ]
+  },
   "dependencies": {
     "babel-plugin-transform-modules": "^0.1.1"
   },
