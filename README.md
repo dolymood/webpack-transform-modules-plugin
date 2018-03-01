@@ -13,7 +13,7 @@ npm i webpack-transform-modules-plugin --save-dev
 ### Usage
 
 ```js
-import TransformModulesPlugin from 'webpack-transform-modules-plugin'
+var TransformModulesPlugin = require('webpack-transform-modules-plugin')
 
 module.exports = {
   // ...
