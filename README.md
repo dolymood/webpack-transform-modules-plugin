@@ -56,6 +56,6 @@ new TransformModulesPlugin({
 })
 ```
 
-In this demo, this plugin will load `a` and `b` packages "transformModules" config in each package.json and it will load sub packages "transformModules" config too.
+In this demo, this plugin will load `a` and `b` packages "transformModules" config in each package.json and it will load sub packages "transformModules" configs too.
 
 * `transformModules {Object}` default `undefined`, application init `babel-plugin-transform-modules` 'transform-modules' options, if it is `undefined` then this plugin will get `transformModules` value in `package.json` as the init config.
