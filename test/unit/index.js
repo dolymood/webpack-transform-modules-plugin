@@ -46,6 +46,12 @@ describe('TransformModulesPlugin', function () {
                   options: {
                     plugins: ['a-plugin']  
                   }
+                },
+                {
+                  loader: 'm-loader',
+                  options: {
+                    plugins: ['m-plugin']
+                  }
                 }
               ]
             }
@@ -73,6 +79,7 @@ describe('TransformModulesPlugin', function () {
       const ejsPlugins = compiler.options.module.rules[1].use[0].options.plugins
       const mjsPlugins = compiler.options.module.rules[2].use[0].options.plugins
       const mjsPlugins2 = compiler.options.module.rules[2].use[1].options.plugins
+      const mjsPlugins3 = compiler.options.module.rules[2].use[2].options.plugins
       expect(jsPlugins.length)
         .to.equal(1)
       expect(ejsPlugins.length)
@@ -81,12 +88,16 @@ describe('TransformModulesPlugin', function () {
         .to.equal(1)
       expect(mjsPlugins2.length)
         .to.equal(2)
+      expect(mjsPlugins3.length)
+        .to.equal(1)
       expect(jsPlugins[0][1].a)
         .to.be.an('object')
       expect(jsPlugins[0][1].b)
         .to.be.an('object')
       expect(mjsPlugins2[0])
         .to.equal('a-plugin')
+      expect(mjsPlugins3[0])
+        .to.equal('m-plugin')
     })
   })
 })
