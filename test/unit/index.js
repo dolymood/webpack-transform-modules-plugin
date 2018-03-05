@@ -54,6 +54,38 @@ describe('TransformModulesPlugin', function () {
                   }
                 }
               ]
+            },
+            {
+              test: /\.vue$/,
+              loader: 'vue-loader'
+            },
+            {
+              test: /\.vue$/,
+              use: [
+                'vue-loader',
+                {
+                  loader: 'vue-loader',
+                  options: {
+                    loaders: {}
+                  }
+                },
+                {
+                  loader: 'vue-loader',
+                  options: {
+                    loaders: {
+                      js: 'babel-loader'
+                    }
+                  }
+                },
+                {
+                  loader: 'vue-loader',
+                  options: {
+                    loaders: {
+                      js: 'myjs-loader'
+                    }
+                  }
+                }
+              ]
             }
           ]
         }
@@ -75,11 +107,11 @@ describe('TransformModulesPlugin', function () {
     }
     p.apply(compiler)
     compiler._plugins[0].cb(compiler, function () {
-      const jsPlugins = compiler.options.module.rules[0].options.plugins
-      const ejsPlugins = compiler.options.module.rules[1].use[0].options.plugins
-      const mjsPlugins = compiler.options.module.rules[2].use[0].options.plugins
-      const mjsPlugins2 = compiler.options.module.rules[2].use[1].options.plugins
-      const mjsPlugins3 = compiler.options.module.rules[2].use[2].options.plugins
+      var jsPlugins = compiler.options.module.rules[0].options.plugins
+      var ejsPlugins = compiler.options.module.rules[1].use[0].options.plugins
+      var mjsPlugins = compiler.options.module.rules[2].use[0].options.plugins
+      var mjsPlugins2 = compiler.options.module.rules[2].use[1].options.plugins
+      var mjsPlugins3 = compiler.options.module.rules[2].use[2].options.plugins
       expect(jsPlugins.length)
         .to.equal(1)
       expect(ejsPlugins.length)
@@ -98,6 +130,30 @@ describe('TransformModulesPlugin', function () {
         .to.equal('a-plugin')
       expect(mjsPlugins3[0])
         .to.equal('m-plugin')
+
+      var vueLoader = compiler.options.module.rules[3]
+      expectVueLoader(vueLoader)
+      var vueUseLoader = compiler.options.module.rules[4].use
+      var vueUseConf = vueUseLoader[0]
+      var vueUseConf2 = vueUseLoader[1]
+      var vueUseConf3 = vueUseLoader[2]
+      var vueUseConf4 = vueUseLoader[3]
+      expectVueLoader(vueUseConf)
+      expectVueLoader(vueUseConf2)
+      expectVueLoader(vueUseConf3)
+      expectVueLoader(vueUseConf4, 1)
+
+      function expectVueLoader (vueLoader, index) {
+        if (!index) {
+          index = 0
+        }
+        expect(vueLoader.options.loaders.js[index].loader)
+          .to.equal('babel-loader')
+        expect(vueLoader.options.loaders.js[index].options.plugins[0][0])
+          .to.equal('babel-plugin-transform-modules')
+        expect(vueLoader.options.loaders.js[index].options.plugins[0][1])
+          .to.be.an('object')
+      }
     })
   })
 })
