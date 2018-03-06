@@ -2,7 +2,7 @@
 
 A webpack plugin for [babel-plugin-transform-modules](https://github.com/dolymood/babel-plugin-transform-modules). It is used to handle `babel-plugin-transform-modules` 'transform-modules' options in node_modules.
 
-Note: This plugin only works with `babel-loader`.
+Note: This plugin only works with `babel-loader` and `vue-loader`.
 
 ### Install
 
