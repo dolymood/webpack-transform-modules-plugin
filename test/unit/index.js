@@ -86,6 +86,21 @@ describe('TransformModulesPlugin', function () {
                   }
                 }
               ]
+            },
+            {
+              oneOf: [
+                {
+                  use: 'babel-loader',
+                  xx: 'xx'
+                },
+                {
+                  loader: 'babel-loader',
+                  yy: 'yy'
+                },
+                {
+                  loader: 'xx-loader'
+                }
+              ]
             }
           ]
         }
@@ -108,7 +123,7 @@ describe('TransformModulesPlugin', function () {
     p.apply(compiler)
     compiler._plugins[0].cb(compiler, function () {
       var jsPlugins = compiler.options.module.rules[0].options.plugins
-      var ejsPlugins = compiler.options.module.rules[1].use[0].options.plugins
+      var ejsPlugins = compiler.options.module.rules[1].use.options.plugins
       var mjsPlugins = compiler.options.module.rules[2].use[0].options.plugins
       var mjsPlugins2 = compiler.options.module.rules[2].use[1].options.plugins
       var mjsPlugins3 = compiler.options.module.rules[2].use[2].options.plugins
@@ -142,6 +157,14 @@ describe('TransformModulesPlugin', function () {
       expectVueLoader(vueUseConf2)
       expectVueLoader(vueUseConf3)
       expectVueLoader(vueUseConf4, 1)
+
+      var oneOf = compiler.options.module.rules[5].oneOf
+      expect(oneOf[0].use.options.plugins[0][0])
+        .to.equal('babel-plugin-transform-modules')
+      expect(oneOf[1].options.plugins[0][0])
+        .to.equal('babel-plugin-transform-modules')
+      expect(oneOf[2].options)
+        .to.be.undefined
 
       function expectVueLoader (vueLoader, index) {
         if (!index) {

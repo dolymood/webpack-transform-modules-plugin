@@ -41,4 +41,18 @@ describe('util', function () {
     expect(transformModules['@dd/a'])
       .not.to.be.null
   })
+  it('#loaderNameMatches()', function () {
+    expect(util.loaderNameMatches({
+      loader: 'babel-loader'
+    }, 'babel-loader')).to.be.true
+    expect(util.loaderNameMatches({
+      loader: '/xx/babel-loader/i'
+    }, 'babel-loader')).to.be.true
+    expect(util.loaderNameMatches({
+      loader: '@babel-loader/i'
+    }, 'babel-loader')).to.be.true
+    expect(util.loaderNameMatches({
+      loader: '@babedl-loader/i'
+    }, 'babel-loader')).to.be.false
+  })
 })
