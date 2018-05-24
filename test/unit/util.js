@@ -4,21 +4,32 @@ var util = require('../../lib/util')
 
 describe('util', function () {
   it('#getConfig()', function () {
-    var normalPath = path.resolve(__dirname, '../cases/normal')
+    var normalPath = path.resolve(__dirname, '../cases/normal/node_modules/a')
     var config = util.getConfig('.', 'transformModules', normalPath)
     expect(config.a)
       .not.to.be.null
     expect(config.b)
+      .to.be.undefined
+    normalPath = path.resolve(__dirname, '../cases/normal/node_modules/b')
+    config = util.getConfig('.', 'transformModules', normalPath)
+    expect(config.b)
       .not.to.be.null
     config = util.getConfig('b', 'transformModules', normalPath)
-    expect(config.a)
-      .not.to.be.null
     expect(config.b)
+      .not.to.be.null
+    expect(config.a)
       .to.be.undefined
   })
   it('#collectTransformModules()', function () {
     var normalPath = path.resolve(__dirname, '../cases/normal')
-    var initTransformModules = util.getConfig('.', 'transformModules', normalPath)
+    var appPkg = util.getPkg('.', normalPath)
+    var initTransformModules = appPkg['transformModules']
+    if (!initTransformModules) {
+      initTransformModules = {}
+      Object.keys(appPkg.dependencies || {}).forEach(function (k) {
+        initTransformModules[k] = null
+      })
+    }
     var transformModules = {}
     util.collectTransformModules(initTransformModules, transformModules, normalPath, 'transformModules')
     expect(transformModules.a)
